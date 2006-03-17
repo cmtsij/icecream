@@ -1,0 +1,14 @@
+How to install icecream
+=======================
+
+cd kdenonbeta/icecream/icecream
+(make -f Makefile.cvs)
+./configure --prefix=/opt/icecream
+make
+make install
+
+WARNING: Make sure you specify a prefix, otherwise icecream
+might override your gcc installation!
+
+Please have a look at http://wiki.kde.org/icecream - the docu 
+is maintained there for the time being

@@ -1,0 +1,32 @@
+Release Critical:
+* bind the broadcast listener to fixed local port (8765) (otherwise not firewallable) (matz)
+* chmod TMPDIR/native, as otherwise set umask prevent it from being readable by the client
+   I'm wondering if it doesn't make sense to leave the daemon out of the game and let the
+   client package the environment - it could either cache it in /tmp and leave a note in
+   ~/.icecream or it packages it right into ~/.icecream and use e.g. the inode numbers of
+   the compilers to verify it's the right environment - think NFS users changing machines.
+   This would simplify some things and avoid the above bugs (and it would make it more
+   convenient for users of /opt/gcc-cvs/bin too)
+* Improve Documentation (cschum)
+* I'm not sure but I think we need to lock the local host _before_ we fork off the notification
+  child. Otherwise the gantt view explodes :)
+* make the protocol version an uint32, not a hand-build array.
+* let the client specify it was compiled with recent compiler (supporting -param). If so,
+  let the daemon compile with the options, otherwise leave them out. 
+
+Random:
+* Option -iiface to specify the interface[s] to listen on for the scheduler, or
+  to use for the daemon.
+* Don't explicitly forbid tunnels because it could be useful for things like
+  vmware
+* If someone calls a amd64 client on a host that runs a ia32 daemon and there are
+  no other amd64 daemons in the farm, he will get no answer, but a timeout from
+  scheduler (quite a corner case, but neat)
+* use syslog
+
+Suggestions from "Wilson Snyder" sicortex.com:
+- make a debug variable that forces a job to be compiled on specific host to make
+  debugging a farm easier (to be used with care :)
+- Add ICECREAM_RUN_ICECCD to make the scheduler machine not run iceccd
+- Have schedulers redudant - e.g. as in nmbd
+
